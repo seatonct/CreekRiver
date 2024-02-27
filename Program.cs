@@ -51,6 +51,7 @@ app.MapGet("/api/campsites/{id}", (CreekRiverDbContext db, int id) =>
             {
                 Id = c.Id,
                 Nickname = c.Nickname,
+                ImageUrl = c.ImageUrl,
                 CampsiteTypeId = c.CampsiteTypeId,
                 CampsiteType = new CampsiteTypeDTO
                 {
@@ -79,7 +80,7 @@ app.MapPost("/api/campsites", (CreekRiverDbContext db, Campsite campsite) =>
 
 app.MapDelete("/api/campsites/{id}", (CreekRiverDbContext db, int id) =>
 {
-    Campsite campsite = db.Campsites.SingleOrDefault(campsite => campsite.Id == id);
+    Campsite? campsite = db.Campsites.SingleOrDefault(campsite => campsite.Id == id);
     if (campsite == null)
     {
         return Results.NotFound();
@@ -88,6 +89,21 @@ app.MapDelete("/api/campsites/{id}", (CreekRiverDbContext db, int id) =>
     db.SaveChanges();
     return Results.NoContent();
 
+});
+
+app.MapPut("/api/campsites/{id}", (CreekRiverDbContext db, int id, Campsite campsite) =>
+{
+    Campsite? campsiteToUpdate = db.Campsites.SingleOrDefault(campsite => campsite.Id == id);
+    if (campsiteToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    campsiteToUpdate.Nickname = campsite.Nickname;
+    campsiteToUpdate.CampsiteTypeId = campsite.CampsiteTypeId;
+    campsiteToUpdate.ImageUrl = campsite.ImageUrl;
+
+    db.SaveChanges();
+    return Results.NoContent();
 });
 
 app.Run();
