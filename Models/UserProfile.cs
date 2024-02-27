@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using CreekRiver.Models.DTOs;
 
 namespace CreekRiver.Models;
 
