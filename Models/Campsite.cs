@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using CreekRiver.Models.DTOs;
 
 namespace CreekRiver.Models;
 
@@ -11,4 +12,6 @@ public class Campsite
     public int CampsiteTypeId { get; set; }
     public CampsiteType CampsiteType { get; set; }
     public List<Reservation> Reservations { get; set; }
+
+    
 }
