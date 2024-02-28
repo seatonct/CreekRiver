@@ -159,4 +159,17 @@ catch (DbUpdateException)
 }
 });
 
+app.MapDelete("/api/reservations/{id}", (CreekRiverDbContext db, int id) =>
+{
+    Reservation? reservation = db.Reservations.SingleOrDefault(reservation => reservation.Id == id);
+    if (reservation == null)
+    {
+        return Results.NotFound();
+    }
+    db.Reservations.Remove(reservation);
+    db.SaveChanges();
+    return Results.NoContent();
+
+});
+
 app.Run();
