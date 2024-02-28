@@ -10,7 +10,7 @@ public class ReservationDTO
     public DateTime CheckinDate { get; set; }
     public DateTime CheckoutDate { get; set; }
     public int TotalNights => (CheckoutDate - CheckinDate).Days;
-    public static readonly decimal _reservationBaseFee = 10M;
+    private static readonly decimal _reservationBaseFee = 10M;
     public decimal TotalCost
 {
     get
